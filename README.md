@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <a href="https://boris-agent.netlify.app"><img src="https://img.shields.io/badge/🌐_Website-boris--agent.netlify.app-c84b1f?style=for-the-badge" alt="Website"></a>
+  <a href="https://borisagent.netlify.app"><img src="https://img.shields.io/badge/🌐_Website-boris--agent.netlify.app-c84b1f?style=for-the-badge" alt="Website"></a>
 </p>
 
 <p align="center">
