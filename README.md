@@ -13,7 +13,6 @@
 </p>
 
 <p align="center">
-  <a href="https://boris-agent.netlify.app"><img src="https://img.shields.io/badge/Paper-PDF-blue?style=flat-square" alt="Paper PDF"></a>
   <a href="https://github.com/fbotathome"><img src="https://img.shields.io/badge/Team-FBOT@Home-orange?style=flat-square" alt="FBOT@Home"></a>
   <a href="#citation"><img src="https://img.shields.io/badge/Cite-BibTeX-green?style=flat-square" alt="BibTeX"></a>
 </p>
