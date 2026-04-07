@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BORISAgent — LLM-Based Task Planning for Domestic Service Robots</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="static/css/style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">BORISAgent · FBOT</a>
+  <ul class="nav-links">
+    <li><a href="#abstract">Abstract</a></li>
+    <li><a href="#approach">Approach</a></li>
+    <li><a href="#results">Results</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#bibtex">BibTeX</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero fade-in">
+  <div class="venue-pill"><span class="venue-dot"></span>RoboCup@Home &amp; CBR 2025</div>
+  <h1>A <em>BORISAgent</em> Architecture for LLM-Based Task Planning in Domestic Service Robots</h1>
+  <p class="authors">
+    Gabriel A. Dorneles &nbsp;·&nbsp; Richard J. C. Assis &nbsp;·&nbsp; Cris L. Froes<br>
+    Rodrigo S. Guerra &nbsp;·&nbsp; Paulo L. J. Drews-Jr
+  </p>
+  <p class="affiliation">Center for Computational Sciences (C3) · Universidade Federal do Rio Grande – FURG, Brazil</p>
+  <div class="btn-row">
+    <a href="BORISAgent.pdf" class="btn btn-primary" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      Paper PDF
+    </a>
+    <a href="https://github.com/fbotathome" class="btn btn-outline" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+    <a href="#" class="btn btn-outline">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      arXiv
+    </a>
+    <a href="#videos" class="btn btn-outline">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      Videos
+    </a>
+  </div>
+</div>
+
+<!-- HERO IMAGE: BORIS robot photo -->
+<div class="robot-frame fade-in">
+  <!-- REPLACE: swap the div below for <img src="static/images/boris.jpg" alt="BORIS robot" style="width:100%;border-radius:14px;"> -->
+  <div class="robot-placeholder" style="height:380px;">
+    <div class="placeholder-icon">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a09890" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><circle cx="8" cy="10" r="2"/><circle cx="16" cy="10" r="2"/><path d="M8 16h8"/></svg>
+    </div>
+    <span class="ph-label" style="position:relative;z-index:1;">Replace with BORIS robot photo<br><span style="font-size:11px;opacity:0.6;">Recommended: 1200×500px, JPG</span></span>
+  </div>
+</div>
+
+<!-- ABSTRACT -->
+<div id="abstract" class="section fade-in">
+  <span class="section-tag">Abstract</span>
+  <p class="abstract-text">
+    We present a modular architecture for general purpose domestic robots that confines non-deterministic reasoning to a large language model (LLM) acting as a code-generating planner, while delegating execution, monitoring, and recovery to a deterministic skill layer built on ROS 2 state machines. This approach requires no fine-tuning or domain-specific training data, relying entirely on the reasoning capabilities of foundation models guided by structured prompting. We evaluate the architecture on a 100-command benchmark derived from the General Purpose Service Robot (GPSR) task, comparing eight foundation models ranging from 3B to 70B parameters as well as cloud-hosted APIs. The best model achieves a <strong>95.0% task completion rate</strong>, while an ablation study shows that code generation consistently outperforms structured tool calling across all model scales. We further validate the system through deployments in the RoboCup@Home GPSR task, where it successfully executed complex, multi-step household instructions.
+  </p>
+</div>
+
+<!-- APPROACH -->
+<div id="approach" class="section fade-in">
+  <span class="section-tag">Approach Overview</span>
+  <h2>Architecture</h2>
+
+  <!-- Architecture diagram (actual image) -->
+  <div class="figure-block">
+    <img src="static/images/architecture.png" alt="System Architecture">
+    <p class="fig-caption">Fig. 1. System architecture. A natural-language command is transcribed by the ASR module and augmented with environment context in the prompt construction stage. The BORISAgent decomposes the task into a sequence of @tool calls, each of which executes a YASMIN state machine that interfaces with the robot's actuators and sensors through ROS2.</p>
+  </div>
+
+  <!-- BORIS Platform photo placeholder - add your image to static/images/boris_platform.jpg -->
+  <div class="figure-block" style="margin-top:2rem;">
+    <div class="img-placeholder" style="height:260px;">
+      <div class="ph-label">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#a09890" stroke-width="1.5" style="margin:0 auto 8px;display:block;"><rect x="2" y="3" width="20" height="18" rx="2"/><circle cx="8" cy="10" r="2"/><circle cx="16" cy="10" r="2"/><path d="M8 16h8"/></svg>
+        Add: static/images/boris_platform.jpg<br>
+        <span style="font-size:11px;opacity:0.6;">Recommended: 1200×600px</span>
+      </div>
+    </div>
+    <p class="fig-caption">Fig. 2. The BORIS robot platform (1.48m) featuring the SHARK mobile base, WidowX-200 arm, animatronic head, and onboard NVIDIA Jetson Orin AGX.</p>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="results" class="section fade-in">
+  <span class="section-tag">Results</span>
+  <h2>Planning Evaluation</h2>
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num"><span>95</span>%</div>
+      <div class="stat-label">Best model overall task score</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">8</div>
+      <div class="stat-label">Foundation models evaluated</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">20</div>
+      <div class="stat-label">Robot skills available</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">100</div>
+      <div class="stat-label">Benchmark commands</div>
+    </div>
+  </div>
+
+  <!-- Competition callout -->
+  <div class="competition-callout">
+    <div>
+      <div class="callout-label">Competition result</div>
+      <div class="callout-title">RoboCup@Home GPSR Task · CBR 2025</div>
+      <div class="callout-sub">The CodeAgent architecture with Gemini 2.5 Flash scored 880/1000 at the Brazilian Robotics Competition, a dramatic improvement over the prior system.</div>
+    </div>
+    <div class="score-compare">
+      <div class="score-box">
+        <div class="score-big old">65</div>
+        <div class="score-sub">Previous system</div>
+      </div>
+      <div class="score-arrow">→</div>
+      <div class="score-box">
+        <div class="score-big new">880</div>
+        <div class="score-sub">CodeAgent (ours)</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Model comparison table -->
+  <div class="results-table">
+    <div class="results-header">
+      <div>Model</div>
+      <div style="text-align:right">Tier 1</div>
+      <div style="text-align:right">Tier 2</div>
+      <div style="text-align:right">Tier 3</div>
+      <div style="text-align:right">Tier 4</div>
+      <div>Overall</div>
+    </div>
+
+    <!-- Cloud models -->
+    <div class="results-row best">
+      <div><span class="model-name">Claude Sonnet 4.6</span><span class="model-type">cloud · best</span></div>
+      <div class="score-cell">100%</div>
+      <div class="score-cell">92%</div>
+      <div class="score-cell">88%</div>
+      <div class="score-cell">100%</div>
+      <div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:95%"></div></div><span class="bar-val" style="color:var(--accent);font-weight:500">95%</span></div>
+    </div>
+    <div class="results-row">
+      <div><span class="model-name">Gemini 3 Flash</span><span class="model-type">cloud</span></div>
+      <div class="score-cell">100%</div>
+      <div class="score-cell">76%</div>
+      <div class="score-cell">88%</div>
+      <div class="score-cell">92%</div>
+      <div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:89%;opacity:0.6"></div></div><span class="bar-val">89%</span></div>
+    </div>
+
+    <!-- Open-weight -->
+    <div class="results-row">
+      <div><span class="model-name">Qwen3 32B</span><span class="model-type">open-weight</span></div>
+      <div class="score-cell">96%</div>
+      <div class="score-cell">68%</div>
+      <div class="score-cell">72%</div>
+      <div class="score-cell">68%</div>
+      <div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:76%;opacity:0.5"></div></div><span class="bar-val">76%</span></div>
+    </div>
+    <div class="results-row">
+      <div><span class="model-name">Llama 3.3 70B</span><span class="model-type">open-weight</span></div>
+      <div class="score-cell">88%</div>
+      <div class="score-cell">68%</div>
+      <div class="score-cell">56%</div>
+      <div class="score-cell">48%</div>
+      <div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:65%;opacity:0.5"></div></div><span class="bar-val">65%</span></div>
+    </div>
+    <div class="results-row">
+      <div><span class="model-name">Qwen3 14B</span><span class="model-type">open-weight</span></div>
+      <div class="score-cell">84%</div>
+      <div class="score-cell">56%</div>
+      <div class="score-cell">60%</div>
+      <div class="score-cell">56%</div>
+      <div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:64%;opacity:0.45"></div></div><span class="bar-val">64%</span></div>
+    </div>
+    <div class="results-row">
+      <div><span class="model-name">Gemma 3 27B</span><span class="model-type">open-weight</span></div>
+      <div class="score-cell">80%</div>
+      <div class="score-cell">28%</div>
+      <div class="score-cell">16%</div>
+      <div class="score-cell">24%</div>
+      <div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:37%;opacity:0.35"></div></div><span class="bar-val">37%</span></div>
+    </div>
+    <div class="results-row">
+      <div><span class="model-name">Llama 3.1 8B</span><span class="model-type">open-weight · small</span></div>
+      <div class="score-cell">64%</div>
+      <div class="score-cell">20%</div>
+      <div class="score-cell">16%</div>
+      <div class="score-cell">4%</div>
+      <div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:26%;opacity:0.3"></div></div><span class="bar-val">26%</span></div>
+    </div>
+    <div class="results-row">
+      <div><span class="model-name">Llama 3.2 3B</span><span class="model-type">open-weight · small</span></div>
+      <div class="score-cell">44%</div>
+      <div class="score-cell">8%</div>
+      <div class="score-cell">4%</div>
+      <div class="score-cell">0%</div>
+      <div class="bar-wrap"><div class="bar-bg"><div class="bar-fg" style="width:14%;opacity:0.25"></div></div><span class="bar-val">14%</span></div>
+    </div>
+  </div>
+  <p style="font-size:12px;color:var(--text-light);margin-top:0.75rem;">Task Score = % of tasks scoring ≥ 2 on a 4-point scale (greedy decoding, same prompt across all models).</p>
+</div>
+
+<!-- VIDEOS -->
+<div id="videos" class="section fade-in">
+  <span class="section-tag">Demonstrations</span>
+  <h2>Video Results</h2>
+  <p style="font-size:14px;color:var(--text-muted);margin-bottom:2.5rem;max-width:600px;">Real-world executions on the BORIS platform, organized by command complexity tier. Each video shows a complete end-to-end run from spoken instruction to physical action.</p>
+
+  <!-- TIER 1 -->
+  <div class="tier-section">
+    <div class="tier-header">
+      <span class="tier-num">T1</span>
+      <span class="tier-title">Single-step commands</span>
+      <span class="tier-desc">No ambiguity · basic tool selection</span>
+    </div>
+    <div class="video-grid">
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier1/navigate_kitchen.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1a1816;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier1/navigate_kitchen.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 1</div>
+          <div class="video-caption">"Navigate to the kitchen."</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier1/say_hello.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1c1a18;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier1/say_hello.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 2</div>
+          <div class="video-caption">"Say hello to everyone in the living room."</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier1/find_person.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1a1c18;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier1/find_person.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 3</div>
+          <div class="video-caption">"Find the person wearing a red shirt."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIER 2 -->
+  <div class="tier-section">
+    <div class="tier-header">
+      <span class="tier-num">T2</span>
+      <span class="tier-title">Multi-step sequential commands</span>
+      <span class="tier-desc">3–5 chained skills</span>
+    </div>
+    <div class="video-grid">
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier2/bring_lemon.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1a1816;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier2/bring_lemon.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 1</div>
+          <div class="video-caption">"Give me a lemon from the refrigerator."</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier2/guide_person.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#181a1c;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier2/guide_person.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 2</div>
+          <div class="video-caption">"Guide the guest from the entrance to the living room."</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier2/count_people.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1c181a;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier2/count_people.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 3</div>
+          <div class="video-caption">"Count the people in the kitchen and tell me."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIER 3 -->
+  <div class="tier-section">
+    <div class="tier-header">
+      <span class="tier-num">T3</span>
+      <span class="tier-title">Semantic ambiguity & commonsense</span>
+      <span class="tier-desc">Underspecified · VLM reasoning</span>
+    </div>
+    <div class="video-grid">
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier3/something_to_drink.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1a1816;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier3/something_to_drink.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 1</div>
+          <div class="video-caption">"Bring me something to drink from the kitchen."</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier3/something_to_read.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#181c1a;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier3/something_to_read.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 2</div>
+          <div class="video-caption">"Bring me something to read."</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier3/help_sitting.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1a1c18;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier3/help_sitting.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 3</div>
+          <div class="video-caption">"Help the person who looks like they need assistance."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TIER 4 -->
+  <div class="tier-section">
+    <div class="tier-header">
+      <span class="tier-num">T4</span>
+      <span class="tier-title">Conditional logic & recovery</span>
+      <span class="tier-desc">Branching · fallback strategies</span>
+    </div>
+    <div class="video-grid">
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier4/conditional_sleeping.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1a1816;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier4/conditional_sleeping.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 1</div>
+          <div class="video-caption">"Take a drink to the person in the bedroom, but only if they are not sleeping."</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier4/if_not_found.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#1c1a18;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier4/if_not_found.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 2</div>
+          <div class="video-caption">"Find the apple; if not in the kitchen, check the dining room."</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb">
+          <!-- REPLACE: <video src="static/videos/tier4/recovery.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#181c1c;">
+            <div class="play-circle"><div class="play-triangle"></div></div>
+            <span class="ph-text">static/videos/tier4/recovery.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">Example 3</div>
+          <div class="video-caption">"Ask each person in the living room what they want and bring it."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMPETITION -->
+  <div class="tier-section">
+    <div class="tier-header">
+      <span class="tier-num" style="color:#b07a3a">★</span>
+      <span class="tier-title">Competition run — CBR 2025</span>
+      <span class="tier-desc">Full GPSR execution · 880/1000</span>
+    </div>
+    <div class="video-grid" style="grid-template-columns: 1fr 1fr;">
+
+      <div class="video-card">
+        <div class="video-thumb" style="aspect-ratio:16/9;">
+          <!-- REPLACE: <video src="static/videos/competition/cbr2025_full.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#12100e;">
+            <div class="play-circle" style="width:52px;height:52px;"><div class="play-triangle" style="border-left-width:18px;border-top-width:10px;border-bottom-width:10px;"></div></div>
+            <span class="ph-text">static/videos/competition/cbr2025_full.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">CBR 2025 · Full run</div>
+          <div class="video-caption">Complete GPSR task execution achieving 880/1000. Gemini 2.5 Flash as planner.</div>
+        </div>
+      </div>
+
+      <div class="video-card">
+        <div class="video-thumb" style="aspect-ratio:16/9;">
+          <!-- REPLACE: <video src="static/videos/competition/robocup2025.mp4" autoplay loop muted playsinline></video> -->
+          <div class="video-placeholder-bg" style="background:#0e1012;">
+            <div class="play-circle" style="width:52px;height:52px;"><div class="play-triangle" style="border-left-width:18px;border-top-width:10px;border-bottom-width:10px;"></div></div>
+            <span class="ph-text">static/videos/competition/robocup2025.mp4</span>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-label">RoboCup@Home 2025</div>
+          <div class="video-caption">GPSR deployment at RoboCup@Home 2025 with the full BORISAgent system.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- BIBTEX -->
+<div id="bibtex" class="section fade-in">
+  <span class="section-tag">Citation</span>
+  <h2>BibTeX</h2>
+  <div class="bibtex-block">
+    <button class="copy-btn" onclick="copyBibtex(this)">Copy</button>
+    <pre id="bibtex-text"><span class="key">@inproceedings</span>{dorneles2025borisagent,
+  <span class="key">title</span>     = {<span class="val">A BORISAgent Architecture for LLM-Based Task Planning
+               in Domestic Service Robots</span>},
+  <span class="key">author</span>    = {<span class="val">Dorneles, Gabriel A. and Assis, Richard J. C. and
+               Froes, Cris L. and Guerra, Rodrigo S. and
+               Drews-Jr, Paulo L.J.</span>},
+  <span class="key">booktitle</span> = {<span class="val">RoboCup@Home / CBR 2025</span>},
+  <span class="key">year</span>      = {<span class="val">2025</span>},
+  <span class="key">url</span>       = {<span class="val">https://github.com/fbotathome</span>}
+}</pre>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p style="margin-bottom:6px;">
+    <a href="http://www.c3.furg.br" target="_blank">Center for Computational Sciences (C3)</a> ·
+    <a href="https://www.furg.br" target="_blank">FURG</a> ·
+    <a href="https://github.com/fbotathome" target="_blank">GitHub</a>
+  </p>
+  <p>Website template inspired by <a href="https://language-guided.netlify.app" target="_blank">language-guided.netlify.app</a></p>
+</footer>
+
+<!-- JavaScript -->
+<script src="static/js/main.js"></script>
+</body>
+</html>
