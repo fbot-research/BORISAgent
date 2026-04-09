@@ -229,258 +229,68 @@
 <div id="videos" class="section fade-in">
   <span class="section-tag">Demonstrations</span>
   <h2>Video Results</h2>
-  <p style="font-size:14px;color:var(--text-muted);margin-bottom:2.5rem;max-width:600px;">Real-world executions on the BORIS platform, organized by command complexity tier. Each video shows a complete end-to-end run from spoken instruction to physical action.</p>
+  <p style="font-size:14px;color:var(--text-muted);margin-bottom:2.5rem;max-width:600px;">Real-world executions on the BORIS platform. Each video shows a complete end-to-end run from spoken instruction to physical action.</p>
 
-  <!-- TIER 1 -->
+  <!-- SUCCESS -->
   <div class="tier-section">
     <div class="tier-header">
-      <span class="tier-num">T1</span>
-      <span class="tier-title">Single-step commands</span>
-      <span class="tier-desc">No ambiguity · basic tool selection</span>
+      <span class="tier-num" style="color:#2e7d32;">✓</span>
+      <span class="tier-title">Successful executions</span>
+      <span class="tier-desc">Task completed end-to-end</span>
     </div>
-    <div class="video-grid">
+    <div class="video-grid" style="grid-template-columns: repeat(2, 1fr);">
 
       <div class="video-card">
         <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier1/navigate_kitchen.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1a1816;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier1/navigate_kitchen.mp4</span>
-          </div>
+          <video src="static/videos/meet_mary_success.mp4" controls muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>
         </div>
         <div class="video-info">
-          <div class="video-label">Example 1</div>
-          <div class="video-caption">"Navigate to the kitchen."</div>
+          <div class="video-label" style="color:#2e7d32;">Success</div>
+          <div class="video-caption">"Meet Mary in the bedroom and say the day of the month."</div>
         </div>
       </div>
 
       <div class="video-card">
         <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier1/say_hello.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1c1a18;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier1/say_hello.mp4</span>
-          </div>
+          <video src="static/videos/seat_down_success.mp4" controls muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>
         </div>
         <div class="video-info">
-          <div class="video-label">Example 2</div>
-          <div class="video-caption">"Say hello to everyone in the living room."</div>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier1/find_person.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1a1c18;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier1/find_person.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">Example 3</div>
-          <div class="video-caption">"Find the person wearing a red shirt."</div>
+          <div class="video-label" style="color:#2e7d32;">Success</div>
+          <div class="video-caption">"Of all the people in the living room, find the one who's standing and tell them to sit down."</div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- TIER 2 -->
+  <!-- FAILURE -->
   <div class="tier-section">
     <div class="tier-header">
-      <span class="tier-num">T2</span>
-      <span class="tier-title">Multi-step sequential commands</span>
-      <span class="tier-desc">3–5 chained skills</span>
+      <span class="tier-num" style="color:#c62828;">✗</span>
+      <span class="tier-title">Failure cases</span>
+      <span class="tier-desc">Task not completed · illustrates failure modes</span>
     </div>
-    <div class="video-grid">
+    <div class="video-grid" style="grid-template-columns: repeat(2, 1fr);">
 
       <div class="video-card">
         <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier2/bring_lemon.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1a1816;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier2/bring_lemon.mp4</span>
-          </div>
+          <video src="static/videos/meet_mary_fail_edited.mp4" controls muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>
         </div>
         <div class="video-info">
-          <div class="video-label">Example 1</div>
-          <div class="video-caption">"Give me a lemon from the refrigerator."</div>
+          <div class="video-label" style="color:#c62828;">Failure</div>
+          <div class="video-caption">"Meet Mary in the bedroom and say the day of the month."</div>
+          <div class="video-cause"><span class="cause-label">Cause:</span> Navigation Failure</div>
         </div>
       </div>
 
       <div class="video-card">
         <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier2/guide_person.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#181a1c;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier2/guide_person.mp4</span>
-          </div>
+          <video src="static/videos/seat_down_fail.mp4" controls muted playsinline style="width:100%;height:100%;object-fit:cover;"></video>
         </div>
         <div class="video-info">
-          <div class="video-label">Example 2</div>
-          <div class="video-caption">"Guide the guest from the entrance to the living room."</div>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier2/count_people.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1c181a;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier2/count_people.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">Example 3</div>
-          <div class="video-caption">"Count the people in the kitchen and tell me."</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- TIER 3 -->
-  <div class="tier-section">
-    <div class="tier-header">
-      <span class="tier-num">T3</span>
-      <span class="tier-title">Semantic ambiguity & commonsense</span>
-      <span class="tier-desc">Underspecified · VLM reasoning</span>
-    </div>
-    <div class="video-grid">
-
-      <div class="video-card">
-        <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier3/something_to_drink.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1a1816;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier3/something_to_drink.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">Example 1</div>
-          <div class="video-caption">"Bring me something to drink from the kitchen."</div>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier3/something_to_read.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#181c1a;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier3/something_to_read.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">Example 2</div>
-          <div class="video-caption">"Bring me something to read."</div>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier3/help_sitting.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1a1c18;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier3/help_sitting.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">Example 3</div>
-          <div class="video-caption">"Help the person who looks like they need assistance."</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- TIER 4 -->
-  <div class="tier-section">
-    <div class="tier-header">
-      <span class="tier-num">T4</span>
-      <span class="tier-title">Conditional logic & recovery</span>
-      <span class="tier-desc">Branching · fallback strategies</span>
-    </div>
-    <div class="video-grid">
-
-      <div class="video-card">
-        <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier4/conditional_sleeping.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1a1816;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier4/conditional_sleeping.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">Example 1</div>
-          <div class="video-caption">"Take a drink to the person in the bedroom, but only if they are not sleeping."</div>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier4/if_not_found.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#1c1a18;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier4/if_not_found.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">Example 2</div>
-          <div class="video-caption">"Find the apple; if not in the kitchen, check the dining room."</div>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-thumb">
-          <!-- REPLACE: <video src="static/videos/tier4/recovery.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#181c1c;">
-            <div class="play-circle"><div class="play-triangle"></div></div>
-            <span class="ph-text">static/videos/tier4/recovery.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">Example 3</div>
-          <div class="video-caption">"Ask each person in the living room what they want and bring it."</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- COMPETITION -->
-  <div class="tier-section">
-    <div class="tier-header">
-      <span class="tier-num" style="color:#b07a3a">★</span>
-      <span class="tier-title">Competition run — CBR 2025</span>
-      <span class="tier-desc">Full GPSR execution · 880/1000</span>
-    </div>
-    <div class="video-grid" style="grid-template-columns: 1fr 1fr;">
-
-      <div class="video-card">
-        <div class="video-thumb" style="aspect-ratio:16/9;">
-          <!-- REPLACE: <video src="static/videos/competition/cbr2025_full.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#12100e;">
-            <div class="play-circle" style="width:52px;height:52px;"><div class="play-triangle" style="border-left-width:18px;border-top-width:10px;border-bottom-width:10px;"></div></div>
-            <span class="ph-text">static/videos/competition/cbr2025_full.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">CBR 2025 · Full run</div>
-          <div class="video-caption">Complete GPSR task execution achieving 880/1000. Gemini 2.5 Flash as planner.</div>
-        </div>
-      </div>
-
-      <div class="video-card">
-        <div class="video-thumb" style="aspect-ratio:16/9;">
-          <!-- REPLACE: <video src="static/videos/competition/robocup2025.mp4" autoplay loop muted playsinline></video> -->
-          <div class="video-placeholder-bg" style="background:#0e1012;">
-            <div class="play-circle" style="width:52px;height:52px;"><div class="play-triangle" style="border-left-width:18px;border-top-width:10px;border-bottom-width:10px;"></div></div>
-            <span class="ph-text">static/videos/competition/robocup2025.mp4</span>
-          </div>
-        </div>
-        <div class="video-info">
-          <div class="video-label">RoboCup@Home 2025</div>
-          <div class="video-caption">GPSR deployment at RoboCup@Home 2025 with the full BORISAgent system.</div>
+          <div class="video-label" style="color:#c62828;">Failure</div>
+          <div class="video-caption">"Of all the people in the living room, find the one who's standing and tell them to sit down."</div>
+          <div class="video-cause"><span class="cause-label">Cause:</span> Perception Failure</div>
         </div>
       </div>
 
