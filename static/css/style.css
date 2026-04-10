@@ -707,6 +707,111 @@ footer a:hover { color: var(--text); }
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
+   FAILURE BREAKDOWN CHART
+   ═══════════════════════════════════════════════════════════════════════════ */
+.failure-chart-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-bottom: 1rem;
+}
+
+.failure-chart-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.failure-chart-title {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.failure-chart-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  justify-content: space-evenly;
+}
+
+.fc-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.fc-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fc-bars {
+  display: flex;
+  align-items: center;
+  height: 20px;
+}
+
+.fc-bar {
+  height: 18px;
+  border-radius: 3px;
+  min-width: 4px;
+  transition: width 0.4s ease;
+}
+
+.fc-axis-row {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: 0.75rem;
+  margin-top: 0.25rem;
+}
+
+.fc-axis {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-light);
+}
+
+.fc-axis span {
+  text-align: center;
+}
+
+.fc-legend {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  font-size: 12px;
+  color: var(--text-muted);
+  margin: 0.75rem 0 1rem;
+  flex-wrap: wrap;
+}
+
+.fc-legend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fc-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════════════════════════════════════════ */
 @media (max-width: 680px) {
@@ -719,4 +824,7 @@ footer a:hover { color: var(--text); }
   .competition-callout { grid-template-columns: 1fr; }
   .score-compare { justify-content: flex-start; }
   nav .nav-links { display: none; }
+  .failure-chart-wrap { grid-template-columns: 1fr; }
+  .fc-row { grid-template-columns: 130px 1fr; }
+  .fc-axis-row { grid-template-columns: 130px 1fr; }
 }

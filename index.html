@@ -22,6 +22,7 @@
     <li><a href="#abstract">Abstract</a></li>
     <li><a href="#approach">Approach</a></li>
     <li><a href="#results">Results</a></li>
+    <li><a href="#real-world">Real World</a></li>
     <li><a href="#videos">Videos</a></li>
     <li><a href="#bibtex">BibTeX</a></li>
   </ul>
@@ -223,6 +224,151 @@
     </div>
   </div>
   <p style="font-size:12px;color:var(--text-light);margin-top:0.75rem;">Task Score = % of tasks scoring ≥ 2 on a 4-point scale (greedy decoding, same prompt across all models).</p>
+</div>
+
+<!-- REAL WORLD EXPERIMENTS -->
+<div id="real-world" class="section fade-in">
+  <span class="section-tag">Real World Experiments</span>
+  <h2>BORIS Platform Evaluation</h2>
+  <p style="font-size:14px;color:var(--text-muted);margin-bottom:2rem;max-width:680px;">Physical evaluation on the BORIS robot across 36 trials per model. Task Score is the percentage of trials scoring ≥ 2. Recovery counts trials where a tool failure was overcome to still achieve a passing score.</p>
+
+  <!-- Summary table -->
+  <div class="results-table" style="margin-bottom:2.5rem;">
+    <div class="results-header" style="grid-template-columns: 2fr 1fr 1.4fr 0.8fr 0.6fr 0.6fr 0.6fr 0.6fr;">
+      <div>Model</div>
+      <div style="text-align:right">Task Score</div>
+      <div style="text-align:right">Time (s)</div>
+      <div style="text-align:center">Recov.</div>
+      <div style="text-align:center">P</div>
+      <div style="text-align:center">N</div>
+      <div style="text-align:center">V</div>
+      <div style="text-align:center">I</div>
+    </div>
+    <div class="results-row best" style="grid-template-columns: 2fr 1fr 1.4fr 0.8fr 0.6fr 0.6fr 0.6fr 0.6fr;">
+      <div><span class="model-name">Gemini 3 Flash</span><span class="model-type">cloud</span></div>
+      <div class="score-cell">83.3%</div>
+      <div class="score-cell">106.8 ± 81.5</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">4</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">1</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">1</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">4</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">0</div>
+    </div>
+    <div class="results-row" style="grid-template-columns: 2fr 1fr 1.4fr 0.8fr 0.6fr 0.6fr 0.6fr 0.6fr;">
+      <div><span class="model-name">Qwen3-14B</span><span class="model-type">open-weight</span></div>
+      <div class="score-cell">58.3%</div>
+      <div class="score-cell">267.2 ± 179.4</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">5</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">11</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">0</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">3</div>
+      <div style="text-align:center;font-size:13px;color:var(--text);">1</div>
+    </div>
+  </div>
+  <p style="font-size:11px;color:var(--text-light);margin-top:-1.5rem;margin-bottom:2.5rem;">P = Planning · N = Navigation · V = Perception (VLM) · I = Interaction — unrecovered failure counts per category.</p>
+
+  <!-- Failure breakdown chart (inline) -->
+  <div class="figure-block">
+    <div class="failure-chart-wrap">
+
+      <!-- Gemini 3 Flash -->
+      <div class="failure-chart-panel">
+        <div class="failure-chart-title">Gemini 3 Flash</div>
+        <div class="failure-chart-body">
+          <div class="fc-row">
+            <div class="fc-label">VLM failure</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(4/7*100%);background:#e07b39;" title="Perception: 4"></div>
+            </div>
+          </div>
+          <div class="fc-row">
+            <div class="fc-label">Incorrect object category</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(1/7*100%);background:#9575cd;" title="Planning: 1"></div>
+            </div>
+          </div>
+          <div class="fc-row">
+            <div class="fc-label">Incorrect orientation</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(1/7*100%);background:#4caf7d;" title="Navigation: 1"></div>
+            </div>
+          </div>
+          <div class="fc-axis-row">
+            <div></div>
+            <div class="fc-axis">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Qwen3-14B -->
+      <div class="failure-chart-panel">
+        <div class="failure-chart-title">Qwen3-14B</div>
+        <div class="failure-chart-body">
+          <div class="fc-row">
+            <div class="fc-label">Missing verbal response</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(6/7*100%);background:#9575cd;" title="Planning: 6"></div>
+            </div>
+          </div>
+          <div class="fc-row">
+            <div class="fc-label">VLM failure</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(3/7*100%);background:#e07b39;" title="Perception: 3"></div>
+            </div>
+          </div>
+          <div class="fc-row">
+            <div class="fc-label">Omitted navigation</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(2/7*100%);background:#9575cd;" title="Planning: 2"></div>
+            </div>
+          </div>
+          <div class="fc-row">
+            <div class="fc-label">Malformed code output</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(1/7*100%);background:#9575cd;" title="Planning: 1"></div>
+            </div>
+          </div>
+          <div class="fc-row">
+            <div class="fc-label">Reasoning failure</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(1/7*100%);background:#9575cd;" title="Planning: 1"></div>
+            </div>
+          </div>
+          <div class="fc-row">
+            <div class="fc-label">Premature search termination</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(1/7*100%);background:#9575cd;" title="Planning: 1"></div>
+            </div>
+          </div>
+          <div class="fc-row">
+            <div class="fc-label">ASR transcription error</div>
+            <div class="fc-bars">
+              <div class="fc-bar" style="width:calc(1/7*100%);background:#c49a27;" title="Interaction: 1"></div>
+            </div>
+          </div>
+          <div class="fc-axis-row">
+            <div></div>
+            <div class="fc-axis">
+              <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Legend -->
+    <div class="fc-legend">
+      <span><span class="fc-dot" style="background:#9575cd;"></span>Planning</span>
+      <span><span class="fc-dot" style="background:#4caf7d;"></span>Navigation</span>
+      <span><span class="fc-dot" style="background:#e07b39;"></span>Perception</span>
+      <span><span class="fc-dot" style="background:#c49a27;"></span>Interaction</span>
+    </div>
+
+    <p class="fig-caption">Fig. 3. Failure breakdown by error type for each model. Bar color encodes failure category. Gemini 3 Flash fails primarily due to VLM perception errors, whereas Qwen3-14B shows a broader spread dominated by missing verbal responses and VLM failures.</p>
+  </div>
 </div>
 
 <!-- VIDEOS -->
