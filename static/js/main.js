@@ -24,6 +24,18 @@ function copyBibtex(btn) {
   });
 }
 
+// Architecture diagram responsive scaling
+function scaleArch() {
+  const wrap = document.getElementById('arch-wrap');
+  const canvas = document.getElementById('arch-canvas');
+  if (!wrap || !canvas) return;
+  const scale = wrap.clientWidth / 970;
+  canvas.style.transform = `scale(${scale})`;
+  wrap.style.height = (410 * scale) + 'px';
+}
+scaleArch();
+window.addEventListener('resize', scaleArch);
+
 // Video hover play (for when real videos are added)
 document.querySelectorAll('.video-thumb').forEach(thumb => {
   const video = thumb.querySelector('video');

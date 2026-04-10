@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="static/css/style.css?v=2">
+  <link rel="stylesheet" href="static/css/style.css?v=3">
 </head>
 <body>
 
@@ -31,7 +31,10 @@
 <!-- HERO -->
 <div class="hero fade-in">
   <div class="venue-pill"><span class="venue-dot"></span>FBOT Team</div>
-  <h1>A <em>BORISAgent</em> Architecture for LLM-Based Task Planning in Domestic Service Robots</h1>
+  <div class="hero-title-row">
+    <img src="static/images/boris.png" alt="BORIS mascot" class="hero-mascot">
+    <h1>A <em>BORISAgent</em> Architecture for LLM-Based Task Planning in Domestic Service Robots</h1>
+  </div>
   <p class="authors">
     Gabriel A. Dorneles &nbsp;·&nbsp; Richard J. C. Assis &nbsp;·&nbsp; Cris L. Froes<br>
     Rodrigo S. Guerra &nbsp;·&nbsp; Paulo L. J. Drews-Jr
@@ -81,9 +84,179 @@
   <span class="section-tag">Approach Overview</span>
   <h2>Architecture</h2>
 
-  <!-- Architecture diagram (actual image) -->
+  <!-- Architecture diagram (inline, responsive) -->
   <div class="figure-block">
-    <img src="static/images/architecture.png" alt="System Architecture">
+    <div class="arch-wrap" id="arch-wrap">
+      <div class="arch-canvas" id="arch-canvas">
+
+        <!-- ===== LAYER 1: Language Input ===== -->
+        <div class="arch-layer" style="left:20px; top:10px; width:720px; height:80px;"></div>
+        <div class="arch-layer-label" style="left:34px; top:14px;">Language Input</div>
+
+        <!-- Operator -->
+        <div style="position:absolute; left:40px; top:36px; width:60px; text-align:center; z-index:2;">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none" stroke="#1a1816" stroke-width="1.8">
+            <circle cx="16" cy="10" r="6"/>
+            <path d="M5 30 Q5 20 16 20 Q27 20 27 30"/>
+          </svg>
+          <div class="arch-operator-label">Operator</div>
+        </div>
+
+        <div class="arch-block" style="left:130px; top:38px; width:150px; height:38px;">
+          <span class="arch-block-label">ASR</span>
+          <span class="arch-block-sub">NVIDIA Riva</span>
+        </div>
+
+        <div class="arch-block" style="left:440px; top:38px; width:200px; height:38px;">
+          <span class="arch-block-label">Prompt Construction</span>
+          <span class="arch-block-sub">Locations, Objects, Constraints</span>
+        </div>
+
+        <!-- ===== LAYER 2: High-Level Planner ===== -->
+        <div class="arch-layer" style="left:20px; top:102px; width:940px; height:97px;"></div>
+        <div class="arch-layer-label" style="left:34px; top:106px;">High-Level Planner</div>
+
+        <div class="arch-block arch-block-planner" style="left:120px; top:132px; width:270px; height:48px;">
+          <span class="arch-block-label">CodeAgent</span>
+          <span class="arch-block-sub">smolagents &mdash; multi-step code generation</span>
+        </div>
+
+        <div class="arch-block" style="left:510px; top:132px; width:170px; height:48px;">
+          <span class="arch-block-label">LiteLLM</span>
+          <span class="arch-block-sub">Model routing layer</span>
+        </div>
+
+        <div class="arch-block arch-block-round" style="left:790px; top:140px; width:115px; height:30px; border-style:dashed;">
+          <span style="font-size:12.5px;">LLM Model</span>
+          <span class="arch-block-sub" style="font-size:11px;">local or cloud</span>
+        </div>
+
+        <!-- ===== LAYER 3: Skill Layer ===== -->
+        <div class="arch-layer" style="left:20px; top:214px; width:940px; height:88px;"></div>
+        <div class="arch-layer-label" style="left:34px; top:218px;">Skill Layer (YASMIN State Machines)</div>
+
+        <div class="arch-block" style="left:36px;  top:238px; width:136px; height:50px;">
+          <span class="arch-block-label">Navigation</span>
+          <span class="arch-block-sub">navigate_to_pose<br/>move_forward, rotate</span>
+        </div>
+        <div class="arch-block" style="left:190px; top:238px; width:136px; height:50px;">
+          <span class="arch-block-label">Manipulation</span>
+          <span class="arch-block-sub">detect_and_pick<br/>give_object, place</span>
+        </div>
+        <div class="arch-block" style="left:344px; top:238px; width:136px; height:50px;">
+          <span class="arch-block-label">Perception</span>
+          <span class="arch-block-sub">analyze_scene<br/>count, search, detect</span>
+        </div>
+        <div class="arch-block" style="left:498px; top:238px; width:136px; height:50px;">
+          <span class="arch-block-label">Interaction</span>
+          <span class="arch-block-sub">say_something<br/>listen, set_emotion</span>
+        </div>
+        <div class="arch-block" style="left:652px; top:238px; width:136px; height:50px;">
+          <span class="arch-block-label">Person Finding</span>
+          <span class="arch-block-sub">approach, follow<br/>save_face, find_face</span>
+        </div>
+        <div class="arch-block" style="left:806px; top:238px; width:136px; height:50px;">
+          <span class="arch-block-label">Knowledge</span>
+          <span class="arch-block-sub">get_answer<br/>transform_pose</span>
+        </div>
+
+        <!-- ===== LAYER 4: ROS 2 Execution Layer ===== -->
+        <div class="arch-layer" style="left:20px; top:328px; width:940px; height:72px;"></div>
+        <div class="arch-layer-label" style="left:34px; top:332px;">ROS 2 Execution Layer</div>
+
+        <div class="arch-block arch-block-round" style="left:36px;  top:352px; width:118px; height:34px;">
+          <span class="arch-block-label" style="font-size:13px;">Nav2</span>
+          <span class="arch-block-sub">Navigation Stack</span>
+        </div>
+        <div class="arch-block arch-block-round" style="left:168px; top:352px; width:118px; height:34px;">
+          <span class="arch-block-label" style="font-size:13px;">Interbotix</span>
+          <span class="arch-block-sub">Arm Controller</span>
+        </div>
+        <div class="arch-block arch-block-round" style="left:300px; top:352px; width:118px; height:34px;">
+          <span class="arch-block-label" style="font-size:13px;">YOLOv11</span>
+          <span class="arch-block-sub">Object Detection</span>
+        </div>
+        <div class="arch-block arch-block-round" style="left:432px; top:352px; width:126px; height:34px;">
+          <span class="arch-block-label" style="font-size:13px;">VLM / Moondream</span>
+          <span class="arch-block-sub">Visual Reasoning</span>
+        </div>
+        <div class="arch-block arch-block-round" style="left:572px; top:352px; width:118px; height:34px;">
+          <span class="arch-block-label" style="font-size:13px;">DeepFace</span>
+          <span class="arch-block-sub">Face Recognition</span>
+        </div>
+        <div class="arch-block arch-block-round" style="left:704px; top:352px; width:118px; height:34px;">
+          <span class="arch-block-label" style="font-size:13px;">Riva</span>
+          <span class="arch-block-sub">ASR / TTS</span>
+        </div>
+        <div class="arch-block arch-block-round" style="left:836px; top:352px; width:118px; height:34px;">
+          <span class="arch-block-label" style="font-size:13px;">Animatronic Head</span>
+          <span class="arch-block-sub">Facial Expression</span>
+        </div>
+
+        <!-- ===== SVG ARROWS ===== -->
+        <svg style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;" viewBox="0 0 970 410" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="ah" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill="#1a1816"/>
+            </marker>
+            <marker id="ah-soft" markerWidth="7" markerHeight="5" refX="6" refY="2.5" orient="auto">
+              <polygon points="0 0, 7 2.5, 0 5" fill="#6b6660"/>
+            </marker>
+          </defs>
+
+          <!-- Operator → ASR -->
+          <line x1="100" y1="57" x2="127" y2="57" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.5"/>
+          <!-- ASR → Prompt Construction -->
+          <line x1="282" y1="57" x2="437" y2="57" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.5"/>
+          <!-- Prompt Construction ↓ to CodeAgent -->
+          <path d="M 540 78 L 540 94 L 320 94 L 320 119" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.5" fill="none"/>
+          <!-- CodeAgent → LiteLLM -->
+          <line x1="392" y1="156" x2="507" y2="156" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.5"/>
+          <!-- LiteLLM → LLM Model -->
+          <line x1="682" y1="156" x2="787" y2="156" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.5"/>
+          <!-- Feedback loop: outcomes back to CodeAgent -->
+          <path d="M 133 180 L 133 196 L 82 196 L 82 156 L 117 156" marker-end="url(#ah)" stroke="#a09890" stroke-width="1.2" fill="none"/>
+          <!-- Tool bus: CodeAgent ↓ stubs -->
+          <line x1="220" y1="182" x2="220" y2="200" stroke="#1a1816" stroke-width="1.5"/>
+          <line x1="320" y1="182" x2="320" y2="200" stroke="#1a1816" stroke-width="1.5"/>
+          <!-- Horizontal tool bus -->
+          <line x1="104" y1="200" x2="874" y2="200" stroke="#1a1816" stroke-width="2"/>
+          <!-- Bus ↓ to each skill -->
+          <line x1="104" y1="200" x2="104" y2="235" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.4"/>
+          <line x1="258" y1="200" x2="258" y2="235" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.4"/>
+          <line x1="412" y1="200" x2="412" y2="235" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.4"/>
+          <line x1="566" y1="200" x2="566" y2="235" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.4"/>
+          <line x1="720" y1="200" x2="720" y2="235" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.4"/>
+          <line x1="874" y1="200" x2="874" y2="235" marker-end="url(#ah)" stroke="#1a1816" stroke-width="1.4"/>
+          <!-- Vertical stubs from skills down to ROS 2 bus -->
+          <line x1="104" y1="290" x2="104" y2="310" stroke="#6b6660" stroke-width="1.2"/>
+          <line x1="258" y1="290" x2="258" y2="310" stroke="#6b6660" stroke-width="1.2"/>
+          <line x1="412" y1="290" x2="412" y2="310" stroke="#6b6660" stroke-width="1.2"/>
+          <line x1="566" y1="290" x2="566" y2="310" stroke="#6b6660" stroke-width="1.2"/>
+          <line x1="720" y1="290" x2="720" y2="310" stroke="#6b6660" stroke-width="1.2"/>
+          <line x1="874" y1="290" x2="874" y2="310" stroke="#6b6660" stroke-width="1.2"/>
+          <!-- Dashed ROS 2 horizontal bus -->
+          <line x1="95" y1="310" x2="895" y2="310" stroke="#6b6660" stroke-width="1.4" stroke-dasharray="5,3"/>
+          <!-- Bus ↓ to ROS 2 blocks -->
+          <line x1="95"  y1="310" x2="95"  y2="349" marker-end="url(#ah-soft)" stroke="#6b6660" stroke-width="1.2" stroke-dasharray="5,3"/>
+          <line x1="227" y1="310" x2="227" y2="349" marker-end="url(#ah-soft)" stroke="#6b6660" stroke-width="1.2" stroke-dasharray="5,3"/>
+          <line x1="359" y1="310" x2="359" y2="349" marker-end="url(#ah-soft)" stroke="#6b6660" stroke-width="1.2" stroke-dasharray="5,3"/>
+          <line x1="495" y1="310" x2="495" y2="349" marker-end="url(#ah-soft)" stroke="#6b6660" stroke-width="1.2" stroke-dasharray="5,3"/>
+          <line x1="631" y1="310" x2="631" y2="349" marker-end="url(#ah-soft)" stroke="#6b6660" stroke-width="1.2" stroke-dasharray="5,3"/>
+          <line x1="763" y1="310" x2="763" y2="349" marker-end="url(#ah-soft)" stroke="#6b6660" stroke-width="1.2" stroke-dasharray="5,3"/>
+          <line x1="895" y1="310" x2="895" y2="349" marker-end="url(#ah-soft)" stroke="#6b6660" stroke-width="1.2" stroke-dasharray="5,3"/>
+        </svg>
+
+        <!-- Arrow labels -->
+        <div class="arch-arrow-label" style="left:340px; top:44px;">text</div>
+        <div class="arch-arrow-label" style="left:456px; top:84px;">prompt</div>
+        <div class="arch-arrow-label" style="left:416px; top:143px;">query</div>
+        <div class="arch-arrow-label" style="left:380px; top:189px;">@tool calls</div>
+        <div class="arch-arrow-label" style="left:40px; top:184px; font-size:9px;">outcomes</div>
+        <div class="arch-arrow-label" style="left:420px; top:300px; font-size:9.5px;">ROS 2 actions / services / topics</div>
+
+      </div><!-- /.arch-canvas -->
+    </div><!-- /.arch-wrap -->
     <p class="fig-caption">Fig. 1. System architecture. A natural-language command is transcribed by the ASR module and augmented with environment context in the prompt construction stage. The BORISAgent decomposes the task into a sequence of @tool calls, each of which executes a YASMIN state machine that interfaces with the robot's actuators and sensors through ROS2.</p>
   </div>
 
@@ -124,26 +297,6 @@
     </div>
   </div>
 
-  <!-- Competition callout -->
-  <div class="competition-callout">
-    <div>
-      <div class="callout-label">Competition result</div>
-      <div class="callout-title">RoboCup@Home GPSR Task · CBR 2025</div>
-      <div class="callout-sub">The CodeAgent architecture with Gemini 2.5 Flash scored 880/1000 at the Brazilian Robotics Competition, a dramatic improvement over the prior system.</div>
-    </div>
-    <div class="score-compare">
-      <div class="score-box">
-        <div class="score-big old">65</div>
-        <div class="score-sub">Previous system</div>
-      </div>
-      <div class="score-arrow">→</div>
-      <div class="score-box">
-        <div class="score-big new">880</div>
-        <div class="score-sub">CodeAgent (ours)</div>
-      </div>
-    </div>
-  </div>
-
   <!-- Model comparison table -->
   <div class="results-table">
     <div class="results-header">
@@ -152,7 +305,7 @@
       <div style="text-align:right">Tier 2</div>
       <div style="text-align:right">Tier 3</div>
       <div style="text-align:right">Tier 4</div>
-      <div>Overall</div>
+      <div style="text-align:right">Overall</div>
     </div>
 
     <!-- Cloud models -->
@@ -448,18 +601,9 @@
 <div id="bibtex" class="section fade-in">
   <span class="section-tag">Citation</span>
   <h2>BibTeX</h2>
-  <div class="bibtex-block">
-    <button class="copy-btn" onclick="copyBibtex(this)">Copy</button>
-    <pre id="bibtex-text"><span class="key">@inproceedings</span>{dorneles2025borisagent,
-  <span class="key">title</span>     = {<span class="val">A BORISAgent Architecture for LLM-Based Task Planning
-               in Domestic Service Robots</span>},
-  <span class="key">author</span>    = {<span class="val">Dorneles, Gabriel A. and Assis, Richard J. C. and
-               Froes, Cris L. and Guerra, Rodrigo S. and
-               Drews-Jr, Paulo L.J.</span>},
-  <span class="key">booktitle</span> = {<span class="val">RoboCup@Home / CBR 2025</span>},
-  <span class="key">year</span>      = {<span class="val">2025</span>},
-  <span class="key">url</span>       = {<span class="val">https://github.com/fbotathome</span>}
-}</pre>
+  <div class="bibtex-block" style="display:flex;align-items:center;justify-content:center;gap:0.75rem;min-height:80px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span style="color:rgba(255,255,255,0.45);font-size:14px;">Citation will be available upon publication.</span>
   </div>
 </div>
 
