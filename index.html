@@ -61,22 +61,12 @@
   </div>
 </div>
 
-<!-- HERO IMAGE: BORIS robot photo -->
-<div class="robot-frame fade-in">
-  <!-- REPLACE: swap the div below for <img src="static/images/boris.jpg" alt="BORIS robot" style="width:100%;border-radius:14px;"> -->
-  <div class="robot-placeholder" style="height:380px;">
-    <div class="placeholder-icon">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a09890" stroke-width="1.5"><rect x="2" y="3" width="20" height="18" rx="2"/><circle cx="8" cy="10" r="2"/><circle cx="16" cy="10" r="2"/><path d="M8 16h8"/></svg>
-    </div>
-    <span class="ph-label" style="position:relative;z-index:1;">Replace with BORIS robot photo<br><span style="font-size:11px;opacity:0.6;">Recommended: 1200×500px, JPG</span></span>
-  </div>
-</div>
 
 <!-- ABSTRACT -->
 <div id="abstract" class="section fade-in">
   <span class="section-tag">Abstract</span>
   <p class="abstract-text">
-    We present a modular architecture for general purpose domestic robots that confines non-deterministic reasoning to a large language model (LLM) acting as a code-generating planner, while delegating execution, monitoring, and recovery to a deterministic skill layer built on ROS 2 state machines. This approach requires no fine-tuning or domain-specific training data, relying entirely on the reasoning capabilities of foundation models guided by structured prompting. We evaluate the architecture on a 100-command benchmark derived from the General Purpose Service Robot (GPSR) task, comparing eight foundation models ranging from 3B to 70B parameters as well as cloud-hosted APIs. The best model achieves a <strong>95.0% task completion rate</strong>, while an ablation study shows that code generation consistently outperforms structured tool calling across all model scales. We further validate the system through deployments in the RoboCup@Home GPSR task, where it successfully executed complex, multi-step household instructions.
+    We present a modular architecture for general purpose domestic robots that confines non-deterministic reasoning to a large language model (LLM) acting as a code-generating planner, while delegating execution, monitoring, and recovery to a deterministic skill layer built on ROS 2 state machines. This approach requires no fine-tuning, relying entirely on the reasoning capabilities of foundation models guided by structured prompting. We evaluate the architecture on a 100-command benchmark derived from the General Purpose Service Robot (GPSR) task, comparing eight foundation models ranging from 3B to 70B parameters as well as cloud-hosted APIs. The best model achieves a <strong>95.0% task completion rate</strong>, while an ablation study shows that code generation consistently outperforms structured tool calling across all model scales. We further validate the system through 72 end-to-end trials on the BORIS physical platform, comparing cloud and on-device inference and achieving <strong>83.3% task completion</strong> with a structured failure analysis distinguishing planning from execution errors.
   </p>
 </div>
 
