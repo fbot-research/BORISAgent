@@ -10,8 +10,8 @@
   --text: #1a1816;
   --text-muted: #6b6660;
   --text-light: #a09890;
-  --accent: #c84b1f;
-  --accent-soft: #f5ede8;
+  --accent: #ff5001;
+  --accent-soft: #fff2ec;
   --border: rgba(26,24,22,0.10);
   --border-strong: rgba(26,24,22,0.18);
   --serif: 'DM Serif Display', Georgia, serif;
@@ -400,8 +400,8 @@ h2 {
 
 .results-row:last-child { border-bottom: none; }
 .results-row:hover { background: #faf8f5; }
-.results-row.best { background: #fdf2ee; }
-.results-row.best:hover { background: #faeae3; }
+.results-row.best { background: #fff4ee; }
+.results-row.best:hover { background: #ffe8d9; }
 
 .model-name { font-weight: 500; color: var(--text); }
 
@@ -527,7 +527,7 @@ h2 {
 
 .play-circle {
   width: 42px; height: 42px;
-  background: rgba(200,75,31,0.85);
+  background: rgba(255,80,1,0.85);
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   transition: transform 0.15s, background 0.15s;
@@ -639,7 +639,7 @@ h2 {
 }
 
 .score-big.old { color: rgba(255,255,255,0.3); }
-.score-big.new { color: #f5a07a; }
+.score-big.new { color: #ff8a57; }
 
 .score-sub {
   font-size: 11px;
@@ -672,7 +672,7 @@ h2 {
   word-break: break-all;
 }
 
-.bibtex-block .key { color: #f5a07a; }
+.bibtex-block .key { color: #ff8a57; }
 .bibtex-block .val { color: #9ecaed; }
 
 .copy-btn {
@@ -771,7 +771,7 @@ footer a:hover { color: var(--text); }
 
 .arch-block-planner {
   background: var(--accent-soft);
-  border-color: rgba(200,75,31,0.35);
+  border-color: rgba(255,80,1,0.35);
 }
 
 .arch-block-round {
